@@ -13,13 +13,16 @@ services:
       - "5432:5432"
 
   pgadmin:
-    image: dpage/pgadmin4:8.11.0
+    image: dpage/pgadmin4:2024-08-20-2
     container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadminpassword}
     ports:
       - "8080:80"
+    volumes:
+      - ./servers.json:/pgadmin4/servers.json
+      - ./pgpass:/pgpass
     depends_on:
       - postgres
 
