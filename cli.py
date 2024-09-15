@@ -1,6 +1,7 @@
 import os
 import click
 from dotenv import load_dotenv
+from backup import *
 
 load_dotenv(dotenv_path='./db_secrets.env')
 
@@ -12,7 +13,12 @@ load_dotenv(dotenv_path='./db_secrets.env')
 @click.option('-u', '--user', default=os.getenv('BACKUP_DB_USER'), help='With what user backup database', required=True, envvar='BACKUP_DB_USER')
 @click.option('-p', '--password', default=os.getenv('BACKUP_DB_PASS'), help='Password of the user to connect the database', required=True, envvar='BACKUP_DB_PASS')
 def backup(type, database, host, port, user, password):
-    click.echo(f'Backup database wiht type {type}, db is : {database}, host is : {host}, port is : {port}, user is : {user}, password is : {password}')
+    if type == 'postgres':
+        with open("./.pgpass", 'w') as pgpass_file:
+            pgpass_file.write(f"{host}:{port}:*:{user}:{password}")
+
+        if database == 'all':
+            backup_postgres_all_databases(host, port, user)
     
 if __name__ == '__main__':
     backup()
