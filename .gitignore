@@ -1,3 +1,4 @@
 .env
 Pipfile.lock
 db_secrets.env
+.pgpass
