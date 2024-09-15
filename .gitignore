@@ -2,4 +2,4 @@
 Pipfile.lock
 db_secrets.env
 .pgpass
-pgadmin4.db
+*.db
