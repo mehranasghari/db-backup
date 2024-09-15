@@ -2,6 +2,7 @@ services:
   postgres:
     image: postgres:15-alpine
     container_name: postgres_db
+    hostname: postgres_db
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-pguser}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pgpassword}
@@ -15,9 +16,12 @@ services:
   pgadmin:
     image: dpage/pgadmin4:2024-08-20-2
     container_name: pgadmin
+    hostname: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadminpassword}
+    volumes:
+      - ./pgadmin4.db:/var/lib/pgadmin/pgadmin4.db
     ports:
       - "8080:80"
     depends_on:
