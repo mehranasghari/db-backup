@@ -20,9 +20,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadminpassword}
     ports:
       - "8080:80"
-    volumes:
-      - ./servers.json:/pgadmin4/servers.json
-      - ./pgpass:/pgpass
     depends_on:
       - postgres
 
