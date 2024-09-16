@@ -1,6 +1,6 @@
 import click
 import os
-from .mail import send_mail
+from mail import send_mail
 
 @click.group(context_settings=dict(max_content_width=120))
 def pytide_courier():
