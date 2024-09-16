@@ -1,1 +1,4 @@
-A tool which can backup your database
+# DB Backup
+## A tool which can backup your database
+
+you must have `postgresql-client` pcakage present on your system. If you don't have just run `sudo apt install postgresql-client`
