@@ -3,3 +3,16 @@ Pipfile.lock
 db_secrets.env
 .pgpass
 *.db
+.venv/
+env/
+venv/
+Pipfile.lock
+
+__pycache__/
+*.pyc
+*.pyo
+
+.env
+*.egg-info/
+build/
+dist/
