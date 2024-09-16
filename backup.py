@@ -14,7 +14,7 @@ def backup_postgres_all_databases(host, port, user):
         ]
     with open(file_name, 'w') as file:
         try:
-            subprocess.run(command, stdout=file, text=True, check=True)
+            subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPIE, text=True, check=True)
             print('Database backup completed')
             print(f'Backup file saved in {file_name}')
         except subprocess.CalledProcessError as e:
@@ -34,7 +34,7 @@ def backup_postgres(host, port, user, database):
         ]
     with open(file_name, 'w') as file:
         try:
-            subprocess.run(command, stdout=file, text=True, check=True)
+            subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPIE, text=True, check=True)
             print('Database backup completed')
             print(f'Backup file saved in {file_name}')
         except subprocess.CalledProcessError as e:
