@@ -26,6 +26,8 @@ def backup(type, database, host, port, user, password):
             backup_postgres_all_databases(host, port, user)
         else:
             backup_postgres(host, port, user, database)
+    elif type == 'mysql':
+        backup_mysql(host, port, user, database)
     
 if __name__ == '__main__':
     backup()

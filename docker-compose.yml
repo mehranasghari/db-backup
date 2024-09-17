@@ -35,7 +35,7 @@ services:
     hostname: mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-mysqlpassword}
-      MYSQL_DATABAASE: ${MYSQL_DATABASE:-mysqldb}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mysqldb}
     ports:
       - "3306:3306"
     volumes:
