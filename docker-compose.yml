@@ -12,6 +12,8 @@ services:
       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     ports:
       - "5432:5432"
+    networks:
+      - db_network
 
   pgadmin:
     image: dpage/pgadmin4:2024-08-20-2
@@ -24,7 +26,28 @@ services:
       - "8080:80"
     depends_on:
       - postgres
+    networks:
+      - db_network
+  
+  mysql:
+    image: mysql:lts
+    container_name: mysql
+    hostname: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-mysqlpassword}
+      MYSQL_DATABAASE: ${MYSQL_DATABASE:-mysqldb}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysqlinit.sql:/docker-entrypoint-initdb.d/mysqlinit.sql
+    networks:
+      - db_network
 
 volumes:
   postgres_data:
+  mysql_data:
+
+networks:
+  db_network:
 
