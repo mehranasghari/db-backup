@@ -12,7 +12,7 @@ load_dotenv(dotenv_path='./db_secrets.env')
 @click.option('-h', '--host', default=os.getenv('BACKUP_DB_HOST'),help='Database host', required=True, envvar='BACKUP_DB_HOST')
 @click.option('-p', '--port', default=os.getenv('BACKUP_DB_PORT'), help='Database port for connecting', required=True, envvar='BACKUP_DB_PORT')
 @click.option('-u', '--user', default=os.getenv('BACKUP_DB_USER'), help='With what user backup database', required=True, envvar='BACKUP_DB_USER')
-@click.option('-p', '--password', default=os.getenv('BACKUP_DB_PASS'), help='Password of the user to connect the database', required=True, envvar='BACKUP_DB_PASS')
+@click.option('--password', default=os.getenv('BACKUP_DB_PASS'), help='Password of the user to connect the database', required=True, envvar='BACKUP_DB_PASS')
 def backup(type, database, host, port, user, password):
     if type == 'postgres':
         home_directory = os.path.expanduser("~")

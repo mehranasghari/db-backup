@@ -30,7 +30,7 @@ services:
       - db_network
   
   mysql:
-    image: mysql:lts
+    image: mysql:9.0
     container_name: mysql
     hostname: mysql
     environment:
