@@ -67,7 +67,7 @@ def backup_mysql(host, port, user, database):
     # print(' '.join(backup_command))
     with open(file_name, 'w') as file:
         try:
-            subprocess.run(backup_command,stdout=file, text=True, check=True)
+            subprocess.run(backup_command, stdout=file, text=True, check=True)
             print('Database backup completed')
             print(f'Backup file saved in {file_name}')
             subprocess.run(email_success_command, text=True, check=True)
@@ -75,6 +75,8 @@ def backup_mysql(host, port, user, database):
         except subprocess.CalledProcessError as e:
             print(f'Error during mysqldump: {e.stderr}')
             subprocess.run(email_failure_command, text=True, check=True)
+        except Exception as e:
+            print(f'Error during mysqldump: {e}')
 
 
 def backup_mysql_all_databases(host, port, user):
