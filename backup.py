@@ -65,7 +65,6 @@ def backup_mysql(host, port, user, database):
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup failed"', '"backup failed"']
     
     # print(' '.join(backup_command))
-    print(MYSQL_BACKUP_PASSWORD, MYSQL_BACKUP_USER)
     with open(file_name, 'w') as file:
         try:
             subprocess.run(backup_command,stdout=file, text=True, check=True)
