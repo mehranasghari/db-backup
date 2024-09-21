@@ -103,3 +103,5 @@ def backup_mysql_all_databases(host, port, user):
         except subprocess.CalledProcessError as e:
             print(f'Error during mysqldump: {e.stderr}')
             subprocess.run(email_failure_command, text=True, check=True)
+        except Exception as e:
+            print(f'Error during mysqldump: {e}')
