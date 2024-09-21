@@ -5,4 +5,4 @@ you must have `postgresql-client` pcakage present on your system. If you don't h
 
 you must have `mysql-client` package present on your system. If you don't have just run `sudo apt install mysql-client`
 
-For backing up mongodb you must have `montosh` tool installed on your system. If you don't have just to to link https://www.mongodb.com/try/download/shell
+For backing up mongodb you must have `mongodump` tool installed on your system.
