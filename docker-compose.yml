@@ -44,9 +44,26 @@ services:
     networks:
       - db_network
 
+  mongodb:
+    image: mongo:jammy
+    container_name: mongodb
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-myuser}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-mypassword}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-mydb}
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongo_data:/data/db
+    networks:
+      - db_network
+
 volumes:
   postgres_data:
   mysql_data:
+  mongo_data:
 
 networks:
   db_network:
