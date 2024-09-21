@@ -95,7 +95,7 @@ def backup_mysql_all_databases(host, port, user):
     print(' '.join(backup_command))
     with open(file_name, 'w') as file:
         try:
-            subprocess.run(backup_command,stdout=file, text=True, check=True)
+            subprocess.run(backup_command, stdout=file, text=True, check=True)
             print('Database backup completed')
             print(f'Backup file saved in {file_name}')
             subprocess.run(email_success_command, text=True, check=True)
@@ -105,3 +105,59 @@ def backup_mysql_all_databases(host, port, user):
             subprocess.run(email_failure_command, text=True, check=True)
         except Exception as e:
             print(f'Error during mysqldump: {e}')
+
+
+def backup_mongodb(host, port, user, database):
+    """Backup specified database in Mongodb database using mongodump"""
+
+    load_dotenv(dotenv_path='./db_secrets.env')
+    EMAIL_SEND_TO = os.getenv('EMAIL_SEND_TO')
+    MONGODB_BACKUP_PASSWORD = os.getenv('MONGODB_BACKUP_PASSWORD')
+    MONGODB_BACKUP_USER = os.getenv('MONGODB_BACKUP_USER')
+    file_name = 'mongodb_backup_' + database + '_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
+    
+    backup_command = ['mongodump', '--host=' + host, '--port=' + port, '--username=' + MONGODB_BACKUP_USER,\
+         '--password=' + MONGODB_BACKUP_PASSWORD, '--db=' + database, '--authenticationDatabase=admin', '--archive=' + file_name]
+    email_success_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup succeeded"', '"backup completed successfully"']
+    email_failure_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup failed"', '"backup failed"']
+    
+    print(' '.join(backup_command))
+    try:
+        subprocess.run(backup_command, text=True, check=True)
+        print('Database backup completed')
+        print(f'Backup file saved in {file_name}')
+        subprocess.run(email_success_command, text=True, check=True)
+
+    except subprocess.CalledProcessError as e:
+        print(f'Error during mysqldump: {e.stderr}')
+        subprocess.run(email_failure_command, text=True, check=True)
+    except Exception as e:
+        print(f'Error during mysqldump: {e}')
+
+
+def backup_mongodb_all_databases(host, port, user):
+    """Backup specified database in Mongodb database using mongodump"""
+
+    load_dotenv(dotenv_path='./db_secrets.env')
+    EMAIL_SEND_TO = os.getenv('EMAIL_SEND_TO')
+    MONGODB_BACKUP_PASSWORD = os.getenv('MONGODB_BACKUP_PASSWORD')
+    MONGODB_BACKUP_USER = os.getenv('MONGODB_BACKUP_USER')
+    file_name = 'mongodb_backup_all_databases_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
+    
+    backup_command = ['mongodump', '--host=' + host, '--port=' + port, '--username=' + MONGODB_BACKUP_USER,\
+         '--password=' + MONGODB_BACKUP_PASSWORD, '--authenticationDatabase=admin', '--archive=' + file_name]
+    email_success_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup succeeded"', '"backup completed successfully"']
+    email_failure_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup failed"', '"backup failed"']
+    
+    print(' '.join(backup_command))
+    try:
+        subprocess.run(backup_command, text=True, check=True)
+        print('Database backup completed')
+        print(f'Backup file saved in {file_name}')
+        subprocess.run(email_success_command, text=True, check=True)
+
+    except subprocess.CalledProcessError as e:
+        print(f'Error during mysqldump: {e.stderr}')
+        subprocess.run(email_failure_command, text=True, check=True)
+    except Exception as e:
+        print(f'Error during mysqldump: {e}')

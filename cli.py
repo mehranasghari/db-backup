@@ -31,6 +31,11 @@ def backup(type, database, host, port, user, password):
             backup_mysql_all_databases(host, port, user)
         else:
             backup_mysql(host, port, user, database)
+    elif type == 'mongodb':
+        if database == 'all':
+            backup_mongodb_all_databases(host, port, user)
+        else:
+            backup_mongodb(host, port, user, database)
     
 if __name__ == '__main__':
     backup()
