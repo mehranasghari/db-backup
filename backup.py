@@ -64,7 +64,7 @@ def backup_mysql(host, port, user, database):
     email_success_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup succeeded"', '"backup completed successfully"']
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup failed"', '"backup failed"']
     
-    # print(' '.join(backup_command))
+    print(' '.join(backup_command))
     with open(file_name, 'w') as file:
         try:
             subprocess.run(backup_command, stdout=file, text=True, check=True)
@@ -86,14 +86,13 @@ def backup_mysql_all_databases(host, port, user):
     EMAIL_SEND_TO = os.getenv('EMAIL_SEND_TO')
     MYSQL_BACKUP_PASSWORD = os.getenv('MYSQL_BACKUP_PASSWORD')
     MYSQL_BACKUP_USER = os.getenv('MYSQL_BACKUP_USER')
-    file_name = 'mysql_backup_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
+    file_name = 'mysql_backup_all_db_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
     
     backup_command = ['mysqldump', '-h', host, '-P', port, '-u' + MYSQL_BACKUP_USER, '-p' + MYSQL_BACKUP_PASSWORD, '--all-databases']
     email_success_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup succeeded"', '"backup completed successfully"']
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', EMAIL_SEND_TO, '"backup failed"', '"backup failed"']
     
     print(' '.join(backup_command))
-    print(MYSQL_BACKUP_PASSWORD, MYSQL_BACKUP_USER)
     with open(file_name, 'w') as file:
         try:
             subprocess.run(backup_command,stdout=file, text=True, check=True)
