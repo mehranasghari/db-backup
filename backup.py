@@ -1,7 +1,6 @@
 import os
 import subprocess
 from datetime import datetime
-from pytide_courier import pytide_courier
 from dotenv import load_dotenv
 
 def backup_db(type, database, host=None, port=None, user=None, password=None, email=None):
