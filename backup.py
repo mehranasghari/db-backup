@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 def backup_db(type, database, host=None, port=None, user=None, password=None, email=None):
     
     load_dotenv(dotenv_path='./.env')
+    env = os.environ.copy()
+    
     email_address = os.getenv('SEND_EMAIL_TO') if email is None else email
     db_backup_host = os.getenv('DB_BACKUP_HOST') if host is None else host
     db_backup_port = os.getenv('DB_BACKUP_PORT') if port is None else port
@@ -20,23 +22,24 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
     if database == 'all':
         
         if type == 'mongodb':
-            file_name = 'mongodb' + file_name
+            file_name = 'mongodb_' + file_name
             backup_command = ['mongodump', '--host=' + db_backup_host, '--port=' + db_backup_port, '--username=' +\
                 db_backup_user, '--password=' + db_backup_password, '--authenticationDatabase=admin', '--archive']
         
         elif type == 'postgres':
-            file_name = 'postgres' + file_name
-            backup_command = ['PGPASSWORD=' + db_backup_password, 'pg_dumpall', '-h', db_backup_host, '-p',\
-                db_backup_port, '-U', db_backup_user, '-w']
+            file_name = 'postgres_' + file_name
+            env['PGPASSWORD'] = db_backup_password
+            backup_command = ['pg_dumpall', '-h', db_backup_host, '-p', db_backup_port, '-U', db_backup_user, '-w']
 
         elif type == 'mysql':
             file_name = 'mysql_' + file_name
             backup_command = ['mysqldump', '-h', db_backup_host, '-P', db_backup_port, '-u' + db_backup_user, '-p' + db_backup_password, '--all-databases']
         
         print(' '.join(backup_command))
+        print(backup_command)
         with open(file_name, 'w') as file:
             try:
-                subprocess.run(backup_command, stdout=file, text=True, check=True, shell=True)
+                subprocess.run(backup_command, stdout=file, text=True, check=True, env=env)
                 print('===========================================================\n')
                 print('\033[92mDatabase backup completed\033[0m\n')
                 print(f'Backup file saved in {file_name}\n')
@@ -44,11 +47,11 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
-                print(f'\033[91mError during mysqldump: {e.stderr}\033[0m')
+                print(f'\033[91mError during backup database: {e.stderr}\033[0m')
                 subprocess.run(email_failure_command, text=True, check=True)
             except Exception as e:
                 print('===========================================================\n')
-                print(f'\033[91mError during mysqldump: {e}\033[0m')
+                print(f'\033[91mError during backup database: {e}\033[0m')
 
 
 
