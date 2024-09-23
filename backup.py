@@ -18,10 +18,10 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
     email_success_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"backup succeeded"', '"backup completed successfully"']
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"backup failed"', '"backup failed"']
 
-    file_name = 'backup_all_databases_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
 
     if database == 'all':
-        
+        file_name = 'backup_all_databases_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
+
         if type == 'mongodb':
             file_name = 'mongodb_' + file_name
             backup_command = ['mongodump', '--host=' + db_backup_host, '--port=' + db_backup_port, '--username=' +\
@@ -55,7 +55,7 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
                 print(f'\033[91mError during backup database: {e}\033[0m')
     
     else:
-        
+        file_name = 'backup_' + db_backup_database + '_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
         if type == 'mongodb':
             file_name = 'mongodb_' + file_name
             backup_command = ['mongodump', '--host=' + db_backup_host, '--port=' + db_backup_port, '--username=' +\
