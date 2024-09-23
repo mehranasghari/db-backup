@@ -1,0 +1,2 @@
+- when restoring specified database check if it is present in the database
+- move loading environment variables from backup.py and restore.py to cli.py
