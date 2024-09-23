@@ -13,13 +13,13 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
     db_backup_port = os.getenv('DB_BACKUP_PORT') if port is None else port
     db_backup_user = os.getenv('DB_BACKUP_USER') if user is None else user
     db_backup_password = os.getenv('DB_BACKUP_PASSWORD') if password is None else password
-    db_backup_database = os.getenv('DB_BACKUP_DATABASE') if database is None else database
+    db_backup_database = database
 
     email_success_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"backup succeeded"', '"backup completed successfully"']
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"backup failed"', '"backup failed"']
 
 
-    if database == 'all':
+    if db_backup_database == 'all':
         file_name = 'backup_all_databases_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
 
         if type == 'mongodb':
