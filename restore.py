@@ -1,4 +1,5 @@
 import os
+import stat
 import subprocess
 from dotenv import load_dotenv
 
@@ -26,8 +27,12 @@ def restore_db(type, file_path, database, host=None, port=None, user=None, passw
                 db_restore_user, '--password=' + db_restore_password, '--authenticationDatabase=admin', '--archive']
         
         elif type == 'postgres':
-            env['PGPASSWORD'] = db_restore_password
-            restore_command = ['pg_dumpall', '-h', db_restore_host, '-p', db_restore_port, '-U', db_restore_user, '-w']
+            pgpass_file_path = os.path.join(os.getcwd(), '.pgpass')
+            pgpass_content = f"{db_restore_host}:{db_restore_port}:*:{db_restore_user}:{db_restore_password}\n"
+            with open(pgpass_file_path, 'w') as file:
+                file.write(pgpass_content)
+            os.chmod(pgpass_file_path, stat.S_IRUSR | stat.S_IWUSR)
+            restore_command = ['psql', '-h', db_restore_host, '-p', db_restore_port, '-U', db_restore_user, '-d', 'postgres', '-w']
 
         elif type == 'mysql':
             restore_command = ['mysql', '-h', db_restore_host, '-P', db_restore_port, '-u' + db_restore_user, '-p' + db_restore_password]
@@ -56,8 +61,12 @@ def restore_db(type, file_path, database, host=None, port=None, user=None, passw
                 db_restore_user, '--password=' + db_restore_password, '--db=' + db_restore_database, '--authenticationDatabase=admin', '--archive']
         
         elif type == 'postgres':
-            env['PGPASSWORD'] = db_restore_password
-            restore_command = ['pg_dump', '--dbname=' + db_restore_database, '-h', db_restore_host, '-p', db_restore_port, '-U', db_restore_user, '-w']
+            pgpass_file_path = os.path.join(os.getcwd(), '.pgpass')
+            pgpass_content = f"{db_restore_host}:{db_restore_port}:*:{db_restore_user}:{db_restore_password}\n"
+            with open(pgpass_file_path, 'w') as file:
+                file.write(pgpass_content)
+            os.chmod(pgpass_file_path, stat.S_IRUSR | stat.S_IWUSR)
+            restore_command = ['psql', '--dbname=' + db_restore_database, '-h', db_restore_host, '-p', db_restore_port, '-U', db_restore_user, '-w']
 
         elif type == 'mysql':
             restore_command = ['mysql', '-h', db_restore_host, '-P', db_restore_port, '-u' + db_restore_user, '-p' + db_restore_password, db_restore_database]
