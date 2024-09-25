@@ -36,8 +36,7 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
             file_name = 'mysql_' + file_name
             backup_command = ['mysqldump', '-h', db_backup_host, '-P', db_backup_port, '-u' + db_backup_user, '-p' + db_backup_password, '--all-databases']
         
-        print(' '.join(backup_command))
-        print(backup_command)
+        # print(' '.join(backup_command))
         with open(file_name, 'w') as file:
             try:
                 subprocess.run(backup_command, stdout=file, text=True, check=True, env=env)
@@ -70,8 +69,7 @@ def backup_db(type, database, host=None, port=None, user=None, password=None, em
             file_name = 'mysql_' + file_name
             backup_command = ['mysqldump', '-h', db_backup_host, '-P', db_backup_port, '-u' + db_backup_user, '-p' + db_backup_password, db_backup_database]
         
-        print(' '.join(backup_command))
-        print(backup_command)
+        # print(' '.join(backup_command))
         with open(file_name, 'w') as file:
             try:
                 subprocess.run(backup_command, stdout=file, text=True, check=True, env=env)

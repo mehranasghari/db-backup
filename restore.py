@@ -23,8 +23,8 @@ def restore_db(type, file_path, database, host=None, port=None, user=None, passw
     if database == 'all':
 
         if type == 'mongodb':
-            restore_command = ['mongodump', '--host=' + db_restore_host, '--port=' + db_restore_port, '--username=' +\
-                db_restore_user, '--password=' + db_restore_password, '--authenticationDatabase=admin', '--archive']
+            restore_command = ['mongorestore', '--host=' + db_restore_host, '--port=' + db_restore_port, '--username=' +\
+                db_restore_user, '--password=' + db_restore_password, '--archive']
         
         elif type == 'postgres':
             pgpass_file_path = os.path.join(os.getcwd(), '.pgpass')
@@ -37,8 +37,7 @@ def restore_db(type, file_path, database, host=None, port=None, user=None, passw
         elif type == 'mysql':
             restore_command = ['mysql', '-h', db_restore_host, '-P', db_restore_port, '-u' + db_restore_user, '-p' + db_restore_password]
         
-        print(' '.join(restore_command))
-        print(restore_command)
+        # print(' '.join(restore_command))
         with open(db_restore_file_path, 'r') as file:
             try:
                 subprocess.run(restore_command, stdin=file, text=True, check=True, env=env)
@@ -57,8 +56,8 @@ def restore_db(type, file_path, database, host=None, port=None, user=None, passw
     
     else:
         if type == 'mongodb':
-            restore_command = ['mongodump', '--host=' + db_restore_host, '--port=' + db_restore_port, '--username=' +\
-                db_restore_user, '--password=' + db_restore_password, '--db=' + db_restore_database, '--authenticationDatabase=admin', '--archive']
+            restore_command = ['mongorestore', '--host=' + db_restore_host, '--port=' + db_restore_port, '--username=' +\
+                db_restore_user, '--password=' + db_restore_password, '--authenticationDatabase=admin', '--archive']
         
         elif type == 'postgres':
             pgpass_file_path = os.path.join(os.getcwd(), '.pgpass')
@@ -71,8 +70,7 @@ def restore_db(type, file_path, database, host=None, port=None, user=None, passw
         elif type == 'mysql':
             restore_command = ['mysql', '-h', db_restore_host, '-P', db_restore_port, '-u' + db_restore_user, '-p' + db_restore_password, db_restore_database]
         
-        print(' '.join(restore_command))
-        print(restore_command)
+        # print(' '.join(restore_command))
         with open(db_restore_file_path, 'r') as file:
             try:
                 subprocess.run(restore_command, stdin=file, text=True, check=True, env=env)
