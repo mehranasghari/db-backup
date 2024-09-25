@@ -2,3 +2,4 @@
 - move loading environment variables from backup.py and restore.py to cli.py
 - delete additional print commands in backup.py and restore.py
 - proper extension for backup files
+- pass mysql password for backup and restore via a file
