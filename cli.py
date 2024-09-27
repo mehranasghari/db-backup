@@ -17,7 +17,7 @@ def cli():
 @click.option('-u', '--user', default=None, help='With what user connect to the database')
 @click.option('--password', default=None, help='Password of the user to connect the database')
 @click.option('-e', '--email', default=None, help='Email address to send the status of backup')
-def backup(type, database, host, port, user, password, email):
+def backup(type, database, host=None, port=None, user=None, password=None, email=None):
     backup_db(type, database, host, port, user, password, email)
 
 @cli.command()
@@ -29,7 +29,7 @@ def backup(type, database, host, port, user, password, email):
 @click.option('--password', default=None, help='Password of the user to connect the database')
 @click.option('-f', '--file', default=None, help='Backup file of database', required=True)
 @click.option('-e', '--email', default=None, help='Email address to send the status of backup')
-def restore(type, file, database, host, port, user, password, email):
+def restore(type, file, database, host=None, port=None, user=None, password=None, email=None):
     restore_db(type, file, database, host, port, user, password, email)
 
 if __name__ == '__main__':

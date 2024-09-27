@@ -3,9 +3,9 @@ import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
 
-def backup_db(type, database, host=None, port=None, user=None, password=None, email=None):
+def backup_db(type, database, host, port, user, password, email):
     
-    load_dotenv(dotenv_path='.env')
+    load_dotenv(dotenv_path='.env', override=True)
     env = os.environ.copy()
 
     email_address = os.getenv('SEND_EMAIL_TO') if email is None else email
