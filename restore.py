@@ -27,11 +27,6 @@ def restore_db(type, file_path, database, host, port, user, password, email):
                 db_restore_user, '--password=' + db_restore_password, '--archive']
         
         elif type == 'postgres':
-            # pgpass_file_path = os.path.join(os.getcwd(), '.pgpass')
-            # pgpass_content = f"{db_restore_host}:{db_restore_port}:*:{db_restore_user}:{db_restore_password}\n"
-            # with open(pgpass_file_path, 'w') as file:
-            #     file.write(pgpass_content)
-            # os.chmod(pgpass_file_path, stat.S_IRUSR | stat.S_IWUSR)
             env['PGPASSWORD'] = db_restore_password
             restore_command = ['psql', '-h', db_restore_host, '-p', db_restore_port, '-U', db_restore_user, '-d', 'postgres', '-w']
 
