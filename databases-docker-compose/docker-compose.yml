@@ -9,26 +9,12 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-pgdb}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./postgres-initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     ports:
       - "5432:5432"
     networks:
       - db_network
 
-  pgadmin:
-    image: dpage/pgadmin4:2024-08-20-2
-    container_name: pgadmin
-    hostname: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadminpassword}
-    ports:
-      - "8080:80"
-    depends_on:
-      - postgres
-    networks:
-      - db_network
-  
   mysql:
     image: mysql:9.0
     container_name: mysql
@@ -40,7 +26,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./mysqlinit.sql:/docker-entrypoint-initdb.d/mysqlinit.sql
+      - ./mysql-initdb.sql:/docker-entrypoint-initdb.d/mysqlinit.sql
     networks:
       - db_network
 
@@ -55,8 +41,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - mongo_data:/data/db
+      - ./mongodb-initdb.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - db_network
 
