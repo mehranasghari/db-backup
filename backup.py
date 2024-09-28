@@ -2,6 +2,7 @@ import os
 import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
+from telegram_send_message import send_message
 
 def backup_db(type, database, host, port, user, password, email):
     
@@ -17,6 +18,8 @@ def backup_db(type, database, host, port, user, password, email):
 
     email_success_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"backup succeeded"', '"backup completed successfully"']
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"backup failed"', '"backup failed"']
+    telegram_success_message = f'Backup from "{db_backup_database}" database of {type} was successful'
+    telegram_failure_message = f'Backup from "{db_backup_database}" database of {type} failed'
 
 
     if db_backup_database == 'all':
@@ -44,14 +47,18 @@ def backup_db(type, database, host, port, user, password, email):
                 print('\033[92mDatabase backup completed\033[0m\n')
                 print(f'Backup file saved in {file_name}\n')
                 subprocess.run(email_success_command, text=True, check=True)
+                send_message(telegram_success_message)
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e.stderr}\033[0m')
                 subprocess.run(email_failure_command, text=True, check=True)
+                send_message(telegram_failure_message)
+
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e}\033[0m')
+                send_message(telegram_failure_message)
     
     else:
         file_name = 'backup_' + db_backup_database + '_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
@@ -77,11 +84,15 @@ def backup_db(type, database, host, port, user, password, email):
                 print('\033[92mDatabase backup completed\033[0m\n')
                 print(f'Backup file saved in {file_name}\n')
                 subprocess.run(email_success_command, text=True, check=True)
+                send_message(telegram_success_message)
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e.stderr}\033[0m')
                 subprocess.run(email_failure_command, text=True, check=True)
+                send_message(telegram_failure_message)
+
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e}\033[0m')
+                send_message(telegram_failure_message)

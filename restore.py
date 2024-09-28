@@ -2,6 +2,7 @@ import os
 import stat
 import subprocess
 from dotenv import load_dotenv
+from telegram_send_message import send_message
 
 def restore_db(type, file_path, database, host, port, user, password, email):
     
@@ -18,6 +19,8 @@ def restore_db(type, file_path, database, host, port, user, password, email):
 
     email_success_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"restore succeeded"', '"restore completed successfully"']
     email_failure_command = ['python', 'pytide_courier.py', 'send-email', email_address, '"restore failed"', '"restore failed"']
+    telegram_success_message = f'Restore of "{db_restore_database}" database for {type} was successful'
+    telegram_failure_message = f'Restore of "{db_restore_database}" database for {type} failed'
 
 
     if database == 'all':
@@ -41,14 +44,18 @@ def restore_db(type, file_path, database, host, port, user, password, email):
                 print('\033[92mDatabase restore completed\033[0m\n')
                 print(f'restore file {db_restore_file_path} was successful\n')
                 subprocess.run(email_success_command, text=True, check=True)
+                send_message(telegram_success_message)
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_database}\033[0m\n{e.stderr}')
                 subprocess.run(email_failure_command, text=True, check=True)
+                send_message(telegram_failure_message)
+
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_file_path}\033[0m\n{e}')
+                send_message(telegram_failure_message)
     
     else:
         if type == 'mongodb':
@@ -74,11 +81,15 @@ def restore_db(type, file_path, database, host, port, user, password, email):
                 print('\033[92mDatabase restore completed\033[0m\n')
                 print(f'restore file {db_restore_file_path} was successful\n')
                 subprocess.run(email_success_command, text=True, check=True)
+                send_message(telegram_success_message)
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_database}\033[0m\n{e.stderr}')
                 subprocess.run(email_failure_command, text=True, check=True)
+                send_message(telegram_failure_message)
+
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_file_path}\033[0m\n{e}')
+                send_message(telegram_failure_message)
