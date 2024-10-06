@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from telegram_send_message import send_message
 
-def backup_db(type, database, host, port, user, password, email):
+def backup_db(type, database, host, port, user, password, email=None):
     
     load_dotenv(dotenv_path='.env', override=True)
     env = os.environ.copy()
@@ -48,17 +48,20 @@ def backup_db(type, database, host, port, user, password, email):
                 print(f'Backup file saved in {file_name}\n')
                 subprocess.run(email_success_command, text=True, check=True)
                 send_message(telegram_success_message)
+                return True
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e.stderr}\033[0m')
                 subprocess.run(email_failure_command, text=True, check=True)
                 send_message(telegram_failure_message)
+                return False
 
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e}\033[0m')
                 send_message(telegram_failure_message)
+                return False
     
     else:
         file_name = 'backup_' + db_backup_database + '_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.db'
@@ -85,14 +88,17 @@ def backup_db(type, database, host, port, user, password, email):
                 print(f'Backup file saved in {file_name}\n')
                 subprocess.run(email_success_command, text=True, check=True)
                 send_message(telegram_success_message)
+                return True
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e.stderr}\033[0m')
                 subprocess.run(email_failure_command, text=True, check=True)
                 send_message(telegram_failure_message)
+                return False
 
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during backup database: {e}\033[0m')
                 send_message(telegram_failure_message)
+                return False
