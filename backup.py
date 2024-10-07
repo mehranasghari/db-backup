@@ -48,7 +48,7 @@ def backup_db(type, database, host, port, user, password, email=None):
                 print(f'Backup file saved in {file_name}\n')
                 subprocess.run(email_success_command, text=True, check=True)
                 send_message(telegram_success_message)
-                return True
+                return file_name
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
@@ -88,7 +88,7 @@ def backup_db(type, database, host, port, user, password, email=None):
                 print(f'Backup file saved in {file_name}\n')
                 subprocess.run(email_success_command, text=True, check=True)
                 send_message(telegram_success_message)
-                return True
+                return file_name
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
