@@ -45,17 +45,20 @@ def restore_db(type, file_path, database, host, port, user, password, email):
                 print(f'restore file {db_restore_file_path} was successful\n')
                 subprocess.run(email_success_command, text=True, check=True)
                 send_message(telegram_success_message)
+                return db_restore_database
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_database}\033[0m\n{e.stderr}')
                 subprocess.run(email_failure_command, text=True, check=True)
                 send_message(telegram_failure_message)
+                return False
 
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_file_path}\033[0m\n{e}')
                 send_message(telegram_failure_message)
+                return False
     
     else:
         if type == 'mongodb':
@@ -82,14 +85,18 @@ def restore_db(type, file_path, database, host, port, user, password, email):
                 print(f'restore file {db_restore_file_path} was successful\n')
                 subprocess.run(email_success_command, text=True, check=True)
                 send_message(telegram_success_message)
+                return db_restore_database
 
             except subprocess.CalledProcessError as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_database}\033[0m\n{e.stderr}')
                 subprocess.run(email_failure_command, text=True, check=True)
                 send_message(telegram_failure_message)
+                return False
 
             except Exception as e:
                 print('===========================================================\n')
                 print(f'\033[91mError during restore file: {db_restore_file_path}\033[0m\n{e}')
                 send_message(telegram_failure_message)
+                return False
+                

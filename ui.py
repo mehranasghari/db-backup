@@ -1,5 +1,6 @@
 import flet as ft
 import backup as b
+import restore as r
 
 def ui(page: ft.Page):
     page.title = 'Backup & Restore Database'
@@ -31,32 +32,63 @@ def ui(page: ft.Page):
     password_text = ft.TextField(label='Password', text_align=ft.TextAlign.LEFT, width=300, password=True)
     database_text = ft.TextField(label='Database', text_align=ft.TextAlign.LEFT, width=300)
 
-    result_message = ft.Text(value='', color='green')
+    backup_result_message = ft.Text(value='', color='green')
     def backup(e: ft.ControlEvent):
         print(f"type is {database_type_dropdown.value}")
         print(f"host is {host_text.value}")
         print(f"port is {port_text.value}")
         print(f"username is {username_text.value}")
         print(f"database is {database_text.value}")
-        backup_result = b.backup_db(database_type_dropdown.value, database_text.value, host_text.value, port_text.value, username_text.value, password_text.value)
+        backup_result = b.backup_db(database_type_dropdown.value,
+            database_text.value,
+            host_text.value,
+            port_text.value,
+            username_text.value,
+            password_text.value)
 
         if backup_result:
-            result_message.value = f'Backup was successful! File name: {backup_result}'
-            result_message.color = 'green'
+            backup_result_message.value = f'Backup was successful! File name: {backup_result}'
+            backup_result_message.color = 'green'
         else:
-            result_message.value = f'Backup failed!'
-            result_message.color = 'red'
-        result_message.update()
+            backup_result_message.value = f'Backup failed!'
+            backup_result_message.color = 'red'
+        backup_result_message.update()
 
     backup_button = ft.ElevatedButton(text='Backup', on_click=backup)
+
+    
+    restore_result_message = ft.Text(value='', color='green')
+    def restore(e: ft.ControlEvent):
+        print(f"type is {database_type_dropdown.value}")
+        print(f"host is {host_text.value}")
+        print(f"port is {port_text.value}")
+        print(f"username is {username_text.value}")
+        print(f"database is {database_text.value}")
+        restore_result = r.restore_db(
+            database_type_dropdown.value,
+            file_path,
+            database_text.value,
+            host_text.value,
+            port_text.value,
+            username_text.value,
+            password_text.value)
+        if restore_result:
+            restore_result_message.value = f'Restore from database {database_text.value} was successful!'
+            restore_result_message.color = 'green'
+        else:
+            restore_result_message.value = f'Restore from database {database_text.value} failed!'
+            restore_result_message.color = 'red'
+        restore_result_message.update()
+
+    restore_button = ft.ElevatedButton()
+    
     # page.add(database_type_dropdown, host_text, host_port, username_text, password_text,
     # ft.ElevatedButton("Pick files", icon=ft.icons.UPLOAD_FILE, on_click=lambda _: pick_files_dialog.pick_files()), selected_files)
 
     backup_tab = ft.Tab(
         text="Backup",
         icon=ft.icons.BACKUP_TABLE,
-        content=ft.Column(
-            [
+        content=ft.Column([
                 database_type_dropdown,
                 host_text,
                 port_text,
@@ -64,9 +96,24 @@ def ui(page: ft.Page):
                 password_text,
                 database_text,
                 backup_button,
-                result_message
+                backup_result_message
             ],
         )
+    )
+
+    restore_tab = ft.Tab(
+        text="Restore",
+        icon=ft.icons.RESTORE_PAGE_OUTLINED,
+        content=ft.Column([
+            database_type_dropdown,
+            host_text,
+            port_text,
+            username_text,
+            password_text,
+            database_text,
+            restore_button,
+            restore_result_message,
+        ])
     )
 
     tabs = ft.Tabs(selected_index=0, animation_duration=300, tabs=[backup_tab])
