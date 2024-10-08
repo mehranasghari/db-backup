@@ -7,19 +7,9 @@ def ui(page: ft.Page):
     page.vertical_alignment = 'center'
     page.horizontal_alignment = 'center'
     page.theme_mode = 'dark'
-    page.window_height = 600
-    page.window_width = 600
+    page.window.height = 600
+    page.window.width = 600
 
-    # def pick_files_result(e: ft.FilePickerResultEvent):
-    #     selected_files.value = (
-    #         ", ".join(map(lambda f: f.name, e.files)) if e.files else 'canceled'
-    #     )
-    #     selected_files.update()
-
-    # pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
-    # selected_files = ft.Text()
-
-    # page.overlay.append(pick_files_dialog)
 
     database_type_dropdown = ft.Dropdown(label='Database Type', width=300, options=[
         ft.dropdown.Option('mysql'),
@@ -57,6 +47,17 @@ def ui(page: ft.Page):
     backup_button = ft.ElevatedButton(text='Backup', on_click=backup)
 
     
+
+    selected_files = ft.Text()
+    def pick_files_result(e: ft.FilePickerResultEvent):
+        selected_files.value = (
+            ", ".join(map(lambda f: f.name, e.files)) if e.files else 'canceled'
+        )
+        selected_files.update()
+
+    pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
+
+    page.overlay.append(pick_files_dialog)
     restore_result_message = ft.Text(value='', color='green')
     def restore(e: ft.ControlEvent):
         print(f"type is {database_type_dropdown.value}")
@@ -79,12 +80,9 @@ def ui(page: ft.Page):
             restore_result_message.value = f'Restore from database {database_text.value} failed!'
             restore_result_message.color = 'red'
         restore_result_message.update()
-
-    restore_button = ft.ElevatedButton()
     
-    # page.add(database_type_dropdown, host_text, host_port, username_text, password_text,
-    # ft.ElevatedButton("Pick files", icon=ft.icons.UPLOAD_FILE, on_click=lambda _: pick_files_dialog.pick_files()), selected_files)
-
+    pick_files_button = ft.ElevatedButton("Pick files", icon=ft.icons.UPLOAD_FILE, on_click=lambda _: pick_files_dialog.pick_files())
+    restore_button = ft.ElevatedButton("Restore", on_click=restore)
     backup_tab = ft.Tab(
         text="Backup",
         icon=ft.icons.BACKUP_TABLE,
@@ -111,12 +109,13 @@ def ui(page: ft.Page):
             username_text,
             password_text,
             database_text,
+            pick_files_button,
             restore_button,
             restore_result_message,
         ])
     )
 
-    tabs = ft.Tabs(selected_index=0, animation_duration=300, tabs=[backup_tab])
+    tabs = ft.Tabs(selected_index=0, animation_duration=300, tabs=[backup_tab, restore_tab])
     page.add(tabs)
 
 
