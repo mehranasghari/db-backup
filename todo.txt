@@ -5,3 +5,5 @@
 - pass mysql password for backup and restore via a file
 - postgres init script does not work
 - add echo something when backup and restore
+- in case without internet or vpn connection the successful message or fail message doesn't generate on ui app
+
