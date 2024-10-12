@@ -88,7 +88,7 @@ def ui(page: ft.Page):
     backup_tab = ft.Tab(
         text="Backup",
         icon=ft.icons.BACKUP_TABLE,
-        content=ft.Column([
+        content=ft.Column([ 
                 database_type_dropdown,
                 host_text,
                 port_text,
