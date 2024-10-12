@@ -3,15 +3,15 @@ import flet as ft
 import backup as b
 import restore as r
 
-app_height = 600
-app_width = 600
-app_title = 'Backup & Restore Database'
+APP_HEIGHT = 600
+APP_WIDTH = 600
+APP_TITLE = 'Backup & Restore Database'
 
 def ui(page: ft.Page):
     ''' setup the page '''
-    page.title = app_title
-    page.window.height = app_height
-    page.window.width = app_width
+    page.title = APP_TITLE
+    page.window.height = APP_HEIGHT
+    page.window.width = APP_WIDTH
 
 
     database_type_dropdown = ft.Dropdown(label='Database Type', width=300, options=[
