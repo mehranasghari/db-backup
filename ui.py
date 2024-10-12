@@ -1,9 +1,9 @@
-import flet as ft 
-''' import flet for creating UI '''
 import backup as b
 import restore as r
+''' import flet for creating UI '''
+import flet as ft
 
-def ui(page: ft.Page, height, width): 
+def ui(page: ft.Page, height, width):
     ''' setup the page '''
     page.title = 'Backup & Restore Database'
     page.window.height = height
@@ -16,12 +16,12 @@ def ui(page: ft.Page, height, width):
         ft.dropdown.Option('mongodb'),
     ], autofocus=True, hint_text='Database Type')
     host_text = ft.TextField(
-        label='Host address', value='127.0.0.1', 
+        label='Host address', value='127.0.0.1',
         text_align=ft.TextAlign.LEFT, width=300
         )
     port_text = ft.TextField(label='Host port', text_align=ft.TextAlign.LEFT, width=300)
     username_text = ft.TextField(
-        label='Username', value='root', 
+        label='Username', value='root',
         text_align=ft.TextAlign.LEFT, width=300)
     password_text = ft.TextField(
         label='Password', text_align=ft.TextAlign.LEFT, width=300, password=True)
