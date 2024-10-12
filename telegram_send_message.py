@@ -1,9 +1,8 @@
 ''' importing os to get environment variables '''
 from os import getenv
 from asyncio import run
-from dotenv import load_dotenv
-''' import telegram library for sending status message to the telegram channel '''
 from telegram import Bot
+from dotenv import load_dotenv
 
 def send_message(message='default message'):
     ''' get a message and send it to the telegram channel '''

@@ -1,13 +1,17 @@
-import backup as b
-import restore as r
 ''' import flet for creating UI '''
 import flet as ft
+import backup as b
+import restore as r
 
-def ui(page: ft.Page, height, width):
+app_height = 600
+app_width = 600
+app_title = 'Backup & Restore Database'
+
+def ui(page: ft.Page):
     ''' setup the page '''
-    page.title = 'Backup & Restore Database'
-    page.window.height = height
-    page.window.width = width
+    page.title = app_title
+    page.window.height = app_height
+    page.window.width = app_width
 
 
     database_type_dropdown = ft.Dropdown(label='Database Type', width=300, options=[
@@ -132,4 +136,4 @@ def ui(page: ft.Page, height, width):
     page.add(tabs)
 
 
-ft.app(target=ui(height=600, width=600))
+ft.app(target=ui)
