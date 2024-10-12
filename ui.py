@@ -77,11 +77,11 @@ def ui(page: ft.Page):
             username_text.value, password_text.value)
 
         if restore_result:
-            restore_result_message.value = f'Restore file {selected_files.value} 
+            restore_result_message.value = f'Restore file {selected_files.value} \
                 to database {database_text.value} was successful!'
             restore_result_message.color = 'green'
         else:
-            restore_result_message.value = f'Restore file {selected_files.value} 
+            restore_result_message.value = f'Restore file {selected_files.value} \
                 to database {database_text.value} failed!'
             restore_result_message.color = 'red'
         restore_result_message.update()
