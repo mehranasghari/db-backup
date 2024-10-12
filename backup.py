@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from telegram_send_message import send_message
 
 def backup_db(type, database, host, port, user, password, email=None):
-    
+
     load_dotenv(dotenv_path='.env', override=True)
     env = os.environ.copy()
 

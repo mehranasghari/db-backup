@@ -1,12 +1,9 @@
-import flet as ft
+import flet as ft ''' import flet for creating UI '''
 import backup as b
 import restore as r
 
-def ui(page: ft.Page):
+def ui(page: ft.Page): ''' setup the page '''
     page.title = 'Backup & Restore Database'
-    page.vertical_alignment = 'center'
-    page.horizontal_alignment = 'center'
-    page.theme_mode = 'dark'
     page.window.height = 600
     page.window.width = 600
 
@@ -16,15 +13,21 @@ def ui(page: ft.Page):
         ft.dropdown.Option('postgres'),
         ft.dropdown.Option('mongodb'),
     ], autofocus=True, hint_text='Database Type')
-    host_text = ft.TextField(label='Host address', value='127.0.0.1', text_align=ft.TextAlign.LEFT, width=300)
+    host_text = ft.TextField(
+        label='Host address', value='127.0.0.1', 
+        text_align=ft.TextAlign.LEFT, width=300
+        )
     port_text = ft.TextField(label='Host port', text_align=ft.TextAlign.LEFT, width=300)
-    username_text = ft.TextField(label='Username', value='root', text_align=ft.TextAlign.LEFT, width=300)
-    password_text = ft.TextField(label='Password', text_align=ft.TextAlign.LEFT, width=300, password=True)
+    username_text = ft.TextField(
+        label='Username', value='root', 
+        text_align=ft.TextAlign.LEFT, width=300)
+    password_text = ft.TextField(
+        label='Password', text_align=ft.TextAlign.LEFT, width=300, password=True)
     database_text = ft.TextField(label='Database', text_align=ft.TextAlign.LEFT, width=300)
 
 
     backup_result_message = ft.Text(value='', color='green')
-    
+
     selected_files = ft.Text()
     def pick_files_result(e: ft.FilePickerResultEvent):
         selected_files.value = (
@@ -38,7 +41,7 @@ def ui(page: ft.Page):
     restore_result_message = ft.Text(value='', color='green')
 
 
-    def backup(e: ft.ControlEvent):
+    def backup():
         print(f"type is {database_type_dropdown.value}")
         print(f"host is {host_text.value}")
         print(f"port is {port_text.value}")
@@ -53,11 +56,11 @@ def ui(page: ft.Page):
             backup_result_message.value = f'Backup was successful! File name: {backup_result}'
             backup_result_message.color = 'green'
         else:
-            backup_result_message.value = f'Backup failed!'
+            backup_result_message.value = 'Backup failed!'
             backup_result_message.color = 'red'
         backup_result_message.update()
 
-    def restore(e: ft.ControlEvent):
+    def restore():
         print(f"type is {database_type_dropdown.value}")
         print(f"database restore file path is {selected_files.value}")
         print(f"host is {host_text.value}")
@@ -70,17 +73,22 @@ def ui(page: ft.Page):
             database_text.value,
             host_text.value, port_text.value,
             username_text.value, password_text.value)
-        
+
         if restore_result:
-            restore_result_message.value = f'Restore file {selected_files.value} to database {database_text.value} was successful!'
+            restore_result_message.value = f'Restore file {selected_files.value} 
+                to database {database_text.value} was successful!'
             restore_result_message.color = 'green'
         else:
-            restore_result_message.value = f'Restore file {selected_files.value} to database {database_text.value} failed!'
+            restore_result_message.value = f'Restore file {selected_files.value} 
+                to database {database_text.value} failed!'
             restore_result_message.color = 'red'
         restore_result_message.update()
-    
-    
-    pick_files_button = ft.ElevatedButton("Select files", icon=ft.icons.UPLOAD_FILE, on_click=lambda _: pick_files_dialog.pick_files())
+
+
+    pick_files_button = ft.ElevatedButton(
+        "Select files", icon=ft.icons.UPLOAD_FILE,
+        on_click=lambda _: pick_files_dialog.pick_files()
+        )
     restore_button = ft.ElevatedButton("Restore", on_click=restore)
 
     backup_button = ft.ElevatedButton(text='Backup', on_click=backup)
@@ -88,7 +96,7 @@ def ui(page: ft.Page):
     backup_tab = ft.Tab(
         text="Backup",
         icon=ft.icons.BACKUP_TABLE,
-        content=ft.Column([ 
+        content=ft.Column([
                 database_type_dropdown,
                 host_text,
                 port_text,
