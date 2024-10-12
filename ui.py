@@ -1,8 +1,10 @@
-import flet as ft ''' import flet for creating UI '''
+import flet as ft 
+''' import flet for creating UI '''
 import backup as b
 import restore as r
 
-def ui(page: ft.Page): ''' setup the page '''
+def ui(page: ft.Page): 
+    ''' setup the page '''
     page.title = 'Backup & Restore Database'
     page.window.height = 600
     page.window.width = 600
