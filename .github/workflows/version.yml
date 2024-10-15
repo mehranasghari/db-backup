@@ -1,0 +1,18 @@
+name: versioning
+
+on:
+  - workflow_dispatch
+
+jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5.4.0
+    - name: version the package
+      uses: paulhatch/semantic-version@v5.4.0
+      with:
+        # The prefix to use to identify tags
+        tag_prefix: "v"
+        major_pattern: "(MAJOR)"
+        minor_pattern: "(MINOR)"
+        version_format: "${major}.${minor}.${patch}-prerelease${increment}"
