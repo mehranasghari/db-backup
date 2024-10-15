@@ -7,7 +7,7 @@ jobs:
   versioning:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5.4.0
+    - uses: actions/checkout@v4
     - name: version the package
       uses: paulhatch/semantic-version@v5.4.0
       with:
