@@ -17,4 +17,4 @@ __pycache__/
 build/
 dist/
 
-*.secrets
+**/*.secrets
