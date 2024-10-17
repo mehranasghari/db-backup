@@ -11,7 +11,8 @@ jobs:
     - name: version the package
       uses: paulhatch/semantic-version@v5.4.0
       with:
-        # The prefix to use to identify tags
+        bump_each_commit: true
+        bump_each_commit_patch_pattern: "(PATCH)"
         tag_prefix: "v"
         major_pattern: "(MAJOR)"
         minor_pattern: "(MINOR)"
