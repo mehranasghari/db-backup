@@ -8,12 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: version the package
+
+    - name: bump version based on commit message
+      id: version
       uses: paulhatch/semantic-version@v5.4.0
       with:
+        tag_prefix: "v"
         bump_each_commit: true
         bump_each_commit_patch_pattern: "(PATCH)"
-        tag_prefix: "v"
         major_pattern: "(MAJOR)"
         minor_pattern: "(MINOR)"
         version_format: "${major}.${minor}.${patch}"
+
+    - name: create a new tag
+      run: git tag ${{ steps.version.outputs.version_tag }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
