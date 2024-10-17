@@ -1,4 +1,4 @@
-name: versioning
+name: semver
 
 on:
   - workflow_dispatch
