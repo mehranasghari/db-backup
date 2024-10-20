@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.2.0 (2024-10-20)
+
+### Continuous Integration
+
+* ci: test build feature for python-semantic-release ([`af08a94`](https://github.com/mehranasghari/db-backup/commit/af08a9435a88853b3806a8148dfc2f8f9df6eb8b))
+
+### Features
+
+* feat: test version.yml ([`edf34f8`](https://github.com/mehranasghari/db-backup/commit/edf34f87099c932f42cd895f5c60b1b8961d6219))
+
+
 ## v0.1.0 (2024-10-18)
 
 ### Features
