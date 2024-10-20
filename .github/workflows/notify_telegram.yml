@@ -1,3 +1,25 @@
+name: telegram message
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            Repository: ${{ github.repository }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+
 # name: Notify
 # on:
 #   push:
@@ -15,17 +37,17 @@
 #           TELEGRAM_TOKEN: ${{ secrets.telegram_token }}
 #           TELEGRAM_CHAT: ${{ secrets.telegram_chat }}
 
-name: Send Telegram Message
+# name: Send Telegram Message
 
-on: [push]
+# on: [push]
 
-jobs:
-  notify:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send Telegram Message
-        uses: cbrgm/telegram-github-action@v1
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          to: ${{ secrets.TELEGRAM_CHAT }}
-          message: "New commit pushed to repository"
+# jobs:
+#   notify:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Send Telegram Message
+#         uses: cbrgm/telegram-github-action@v1
+#         with:
+#           token: ${{ secrets.TELEGRAM_TOKEN }}
+#           to: ${{ secrets.TELEGRAM_CHAT }}
+#           message: "New commit pushed to repository"
