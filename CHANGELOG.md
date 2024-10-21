@@ -1,6 +1,27 @@
 # CHANGELOG
 
 
+## v0.3.0 (2024-10-21)
+
+### Bug Fixes
+
+* fix: fix send telegram message when there is a new release ([`e82ec85`](https://github.com/mehranasghari/db-backup/commit/e82ec85ac8e0e1ae02756ae28884ec04af5480ed))
+
+* fix: update notify_telegram.yml in github actions ([`4950fee`](https://github.com/mehranasghari/db-backup/commit/4950feea42ca9817442969b35a155706ee6bff77))
+
+* fix: update notify_telegram.yml in github actions ([`ecbd837`](https://github.com/mehranasghari/db-backup/commit/ecbd8371f62afd0a1575a9cbcd0ff8116e7fe126))
+
+* fix: update notify_telegram.yml in github actions ([`9319c37`](https://github.com/mehranasghari/db-backup/commit/9319c379e21ab431f04a403741855ecb34f3cb64))
+
+### Features
+
+* feat: add telegram notify when a new version releases. ([`ae997f4`](https://github.com/mehranasghari/db-backup/commit/ae997f46c81211b2fb8b1bb0c6616cb1d32bf21d))
+
+### Unknown
+
+* Merge branch 'master' of github.com:mehranasghari/db-backup ([`6bc8967`](https://github.com/mehranasghari/db-backup/commit/6bc89672dcf77809960577deddc4c11510b8310a))
+
+
 ## v0.2.0 (2024-10-20)
 
 ### Continuous Integration
@@ -8,6 +29,8 @@
 * ci: test build feature for python-semantic-release ([`af08a94`](https://github.com/mehranasghari/db-backup/commit/af08a9435a88853b3806a8148dfc2f8f9df6eb8b))
 
 ### Features
+
+* feat: add notify_telegram.yml in github actions ([`902983e`](https://github.com/mehranasghari/db-backup/commit/902983eef1c3294f419ca1fe42d431759947486b))
 
 * feat: test version.yml ([`edf34f8`](https://github.com/mehranasghari/db-backup/commit/edf34f87099c932f42cd895f5c60b1b8961d6219))
 
