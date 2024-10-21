@@ -1,12 +1,8 @@
-
 name: semantic version
-
 on:
-
   workflow_dispatch:
 
 jobs:
-
   versioning:
     runs-on: ubuntu-latest
     concurrency: release
