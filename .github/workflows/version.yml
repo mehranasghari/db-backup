@@ -31,4 +31,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: a new version has just been released
+          message: Version ${{ steps.release.outputs.version }} has just been released
