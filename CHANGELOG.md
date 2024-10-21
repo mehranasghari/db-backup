@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v0.3.1 (2024-10-21)
+
+### Bug Fixes
+
+* fix: fix send telegram message when there is a new release ([`1cd2a07`](https://github.com/mehranasghari/db-backup/commit/1cd2a07936409fb71a35b81defb36b683cedc942))
+
+
 ## v0.3.0 (2024-10-21)
 
 ### Bug Fixes
