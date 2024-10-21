@@ -1,7 +1,30 @@
 # CHANGELOG
 
 
+## v0.4.1 (2024-10-21)
+
+### Bug Fixes
+
+* fix(action): add format for telegram message ([`1a525c9`](https://github.com/mehranasghari/db-backup/commit/1a525c97ca885e1b44020db6058da8acbf66e4ee))
+
+### Code Style
+
+* style(action): make telegram message such a beautiful thing ([`eb85978`](https://github.com/mehranasghari/db-backup/commit/eb85978c2d2df94656359c67c63294e640c03dcb))
+
+### Refactoring
+
+* refactor(actions): specifies versions for actions ([`ca90e7f`](https://github.com/mehranasghari/db-backup/commit/ca90e7f38a6b394be3c0c49bde7d910447b5cc40))
+
+### Unknown
+
+* Merge branch 'master' of github.com:mehranasghari/db-backup ([`03efe99`](https://github.com/mehranasghari/db-backup/commit/03efe99e129d52b83e5d1d37a87213642bc40aa5))
+
+
 ## v0.4.0 (2024-10-21)
+
+### Code Style
+
+* style(action): remove spaces and newlines ([`981515a`](https://github.com/mehranasghari/db-backup/commit/981515a4c126209d26ce007601170daf9219ac07))
 
 ### Unknown
 
