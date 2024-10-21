@@ -28,6 +28,9 @@ jobs:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Version ${{ steps.release.outputs.version }} has just been released!
-            
-            Check it out: https://github.com/mehranasghari/db-backup/releases
+            🎉 **New Version Released!** 🚀
+
+            📦 **Version**: ${{ steps.release.outputs.version }}
+  
+            🔗 [Check out the release notes!](https://github.com/mehranasghari/db-backup/releases)
+  
