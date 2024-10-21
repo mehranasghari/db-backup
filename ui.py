@@ -47,7 +47,7 @@ def ui(page: ft.Page):
     restore_result_message = ft.Text(value='', color='green')
 
 
-    def backup():
+    def backup_database():
         print(f"type is {database_type_dropdown.value}")
         print(f"host is {host_text.value}")
         print(f"port is {port_text.value}")
@@ -66,7 +66,7 @@ def ui(page: ft.Page):
             backup_result_message.color = 'red'
         backup_result_message.update()
 
-    def restore():
+    def restore_database():
         print(f"type is {database_type_dropdown.value}")
         print(f"database restore file path is {selected_files.value}")
         print(f"host is {host_text.value}")
@@ -95,9 +95,9 @@ def ui(page: ft.Page):
         "Select files", icon=ft.icons.UPLOAD_FILE,
         on_click=lambda _: pick_files_dialog.pick_files()
         )
-    restore_button = ft.ElevatedButton("Restore", on_click=restore)
+    restore_button = ft.ElevatedButton("Restore", on_click=restore_database)
 
-    backup_button = ft.ElevatedButton(text='Backup', on_click=backup)
+    backup_button = ft.ElevatedButton(text='Backup', on_click=backup_database)
 
     backup_tab = ft.Tab(
         text="Backup",
