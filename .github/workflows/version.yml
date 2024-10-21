@@ -17,14 +17,17 @@ jobs:
 
       - name: Python Semantic Release
         id: release
-        uses: python-semantic-release/python-semantic-release@master
+        uses: python-semantic-release/python-semantic-release@v9.12.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: send telegram message that a new release has been released
-        uses: appleboy/telegram-action@master
-        if: steps.release.outputs.released == 'true'
+      - name: Send telegram message that a new release has been released
+        uses: appleboy/telegram-action@v1.0.0
+        if: ${{ steps.release.outputs.released }} == 'true'
         with:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Version ${{ steps.release.outputs.version }} has just been released
+          message: |
+            Version ${{ steps.release.outputs.version }} has just been released!
+            
+            Check it out: https://github.com/mehranasghari/db-backup/releases
