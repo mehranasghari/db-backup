@@ -14,7 +14,7 @@ def ui(page: ft.Page):
     page.window.width = APP_WIDTH
 
 
-    database_type_dropdown = ft.Dropdown(label='Database Type', width=300, options=[
+    database_type_dropdown = ft.Dropdown(width=300, options=[
         ft.dropdown.Option('mysql'),
         ft.dropdown.Option('postgres'),
         ft.dropdown.Option('mongodb'),
