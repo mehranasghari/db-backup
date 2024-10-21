@@ -1,7 +1,7 @@
 ''' import flet for creating UI '''
 import flet as ft
-from backup import backup_db
-from restore import restore_db
+import backup as b
+import restore as r
 
 APP_HEIGHT = 600
 APP_WIDTH = 600
@@ -14,7 +14,7 @@ def ui(page: ft.Page):
     page.window.width = APP_WIDTH
 
 
-    database_type_dropdown = ft.Dropdown(width=300, options=[
+    database_type_dropdown = ft.Dropdown(label='Database Type', width=300, options=[
         ft.dropdown.Option('mysql'),
         ft.dropdown.Option('postgres'),
         ft.dropdown.Option('mongodb'),
@@ -47,13 +47,13 @@ def ui(page: ft.Page):
     restore_result_message = ft.Text(value='', color='green')
 
 
-    def backup_database():
+    def backup():
         print(f"type is {database_type_dropdown.value}")
         print(f"host is {host_text.value}")
         print(f"port is {port_text.value}")
         print(f"username is {username_text.value}")
         print(f"database is {database_text.value}")
-        backup_result = backup_db(database_type_dropdown.value,
+        backup_result = b.backup_db(database_type_dropdown.value,
             database_text.value,
             host_text.value, port_text.value,
             username_text.value, password_text.value)
@@ -66,14 +66,14 @@ def ui(page: ft.Page):
             backup_result_message.color = 'red'
         backup_result_message.update()
 
-    def restore_database():
+    def restore():
         print(f"type is {database_type_dropdown.value}")
         print(f"database restore file path is {selected_files.value}")
         print(f"host is {host_text.value}")
         print(f"port is {port_text.value}")
         print(f"username is {username_text.value}")
         print(f"database is {database_text.value}")
-        restore_result = restore_db(
+        restore_result = r.restore_db(
             database_type_dropdown.value,
             selected_files.value,
             database_text.value,
@@ -95,9 +95,9 @@ def ui(page: ft.Page):
         "Select files", icon=ft.icons.UPLOAD_FILE,
         on_click=lambda _: pick_files_dialog.pick_files()
         )
-    restore_button = ft.ElevatedButton("Restore", on_click=restore_database)
+    restore_button = ft.ElevatedButton("Restore", on_click=restore)
 
-    backup_button = ft.ElevatedButton(text='Backup', on_click=backup_database)
+    backup_button = ft.ElevatedButton(text='Backup', on_click=backup)
 
     backup_tab = ft.Tab(
         text="Backup",
