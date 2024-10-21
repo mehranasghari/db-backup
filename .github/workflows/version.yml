@@ -26,7 +26,7 @@ jobs:
           
       - name: send telegram message that a new release has been released
         uses: appleboy/telegram-action@master
-        if: steps.versioning.output.released == 'true'
+        # if: steps.versioning.output.released == 'true'
         with:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
