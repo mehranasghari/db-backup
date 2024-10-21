@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v0.4.0 (2024-10-21)
+
+### Unknown
+
+* Merge branch 'master' of github.com:mehranasghari/db-backup ([`9ec041e`](https://github.com/mehranasghari/db-backup/commit/9ec041ef934c16fe340a3c745cfd7514a55edeca))
+
+
 ## v0.3.3 (2024-10-21)
 
 ### Bug Fixes
@@ -8,6 +15,10 @@
 * fix: use if in sending telegram message ([`e97addc`](https://github.com/mehranasghari/db-backup/commit/e97addc65fd1d337a2f06d951881596054910829))
 
 * fix: use if in sending telegram message ([`76c4053`](https://github.com/mehranasghari/db-backup/commit/76c40536d96f4e1f21ba4b3d49526e6fa8ff86a2))
+
+### Features
+
+* feat(versioning): add version number to telegram message ([`a484a74`](https://github.com/mehranasghari/db-backup/commit/a484a744892d0186f3c51e4f55cd9df636c5cf2f))
 
 
 ## v0.3.2 (2024-10-21)
