@@ -20,13 +20,14 @@ jobs:
           fetch-depth: 0
 
       - name: Python Semantic Release
+        id: release
         uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: send telegram message that a new release has been released
         uses: appleboy/telegram-action@master
-        # if: steps.versioning.output.released == 'true'
+        if: steps.release.output.released == 'true'
         with:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
