@@ -1,7 +1,7 @@
 ''' import flet for creating UI '''
 import flet as ft
-import backup as b
-import restore as r
+from backup import backup_db
+from restore import restore_db
 
 APP_HEIGHT = 600
 APP_WIDTH = 600
@@ -53,7 +53,7 @@ def ui(page: ft.Page):
         print(f"port is {port_text.value}")
         print(f"username is {username_text.value}")
         print(f"database is {database_text.value}")
-        backup_result = b.backup_db(database_type_dropdown.value,
+        backup_result = backup_db(database_type_dropdown.value,
             database_text.value,
             host_text.value, port_text.value,
             username_text.value, password_text.value)
@@ -73,7 +73,7 @@ def ui(page: ft.Page):
         print(f"port is {port_text.value}")
         print(f"username is {username_text.value}")
         print(f"database is {database_text.value}")
-        restore_result = r.restore_db(
+        restore_result = restore_db(
             database_type_dropdown.value,
             selected_files.value,
             database_text.value,
